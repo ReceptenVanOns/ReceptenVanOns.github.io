@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Recepten van ons - bekijk recept</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <script src="webScript.js"></script>
+        <link rel="stylesheet" href="style Recepten.css">
+        <style>
+            #ReceptenfotoHolder {
+                text-align: center;
+                width: 58%;
+                padding-left: 1%;
+                padding-right: 1%;
+                padding-bottom: 1%;
+            }
+            #ReceptenfotoHolder img{
+                width: 100%;
+            }
+            #ReceptenDetails {
+                width: 20%;
+            }
+            #ReceptenIngredienten {
+                width: 20%;
+            }
+
+            div {
+                float: left;
+            }
+            section::after {
+                clear: both;
+                content: "";
+                display: table;
+            }
+        </style>
+    </head>
+    <body>
+        <header id="ReceptenTitel">
+            Recepten van ons - bekijk recept
+        </header>
+        <section>
+            <div id="ReceptenDetails">
+                tekst
+            </div>
+            <div id="ReceptenfotoHolder">
+                <img src="Recepten_Fotos/Aardbei-tiramisu  foto.jpg">
+            </div>
+            <div id="ReceptenIngredienten">
+                tekst
+            </div>
+        </section>
+        <footer>
+            Copyright by: Stan Meijerink & Simone van den Brink
+        </footer>
+
+        <script>
+            bekijkReceptenPaginaLaden();
+        </script>
+    </body>
+</html>
