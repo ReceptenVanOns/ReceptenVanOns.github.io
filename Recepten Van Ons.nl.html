@@ -1,0 +1,206 @@
+<html>
+    <head>
+        <title>Recepten van ons</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+        <script src="webScript.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="style Recepten.css">
+
+        
+    </head>
+    <body>
+
+        <header>
+            Recepten van ons
+        </header>
+
+        <div class="uploader">
+            <input type="file" id="file_upload" />
+            <button onclick="upload()">Upload</button>  
+            <div class="boodschappen">
+                <button onclick="toggleAndShow()">Boodschappenlijst</button> 
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="filter-options">
+                <div class="filter-row">
+                    <div class="filter">
+                    Maximale duur (minuten): <input type="number" id="max_duur" min="10" max="500" />
+                    </div>
+                    <div class="filter">
+                    Maximale aantal ingredienten: <input type="number" id="max_ingredienten" min="10" max="500" />
+                    </div>
+                    <div class="filter" id="longer">
+                        Gezond: <input type="checkbox" class="check" id="gezond" name="gezond" value="gezond">
+                        Budget: <input type="checkbox" class="check" id="budget" name="budget" value="budget">
+                    </div>
+                    <div class="filter">
+                        Maximale moeilijkheidsgraad: <select id="moeilijkheidsgraad" class="soort_select" name="Moeilijkheidsgraad">
+                            <option value="eenvoudig">Eenvoudig</option>
+                            <option value="gemiddeld">Gemiddeld</option>
+                            <option value="uitdagend" selected>Uitdagend</option>
+                        </select>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <div class="filter-row">
+                    <div class="filter">
+                        <select id="soort" class="soort_select" title="Soort..." name="Soort" multiple>
+                            <option value="Aardappel">Aardappel</option>
+                            <option value="Brood">Brood</option>
+                            <option value="Burgers">Burgers</option>
+                            <!--<option value="Couscous">Couscous</option>-->
+                            <option value="Dranken">Dranken</option>
+                            <option value="Gnocchi">Gnocchi</option>
+                            <option value="Lasagne">Lasagne</option>
+                            <option value="Noedels">Noedels</option>
+                            <option value="Pannenkoek">Pannenkoek</option>
+                            <option value="Pasta">Pasta</option>
+                            <option value="Pizza">Pizza</option>
+                            <option value="Rijst">Rijst</option>
+                            <option value="Salade">Salade</option>
+                            <option value="Saus">Saus</option>
+                            <option value="Soep">Soep</option>
+                            <option value="Tacos">Taco's</option>
+                            <option value="Wraps">Wraps</option>
+                            <option value="Onbekend">Onbekend</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <select id="keuken" class="soort_select" title="Keuken..." name="Keuken" multiple>
+                            <option value="Amerikaans">Amerikaans</option>
+                            <option value="Australisch">Australisch</option>
+                            <option value="Aziatisch">Aziatisch</option>
+                            <option value="Belgisch">Belgisch</option>
+                            <!--<option value="Chinees">Chinees</option>-->
+                            <option value="Duits">Duits</option>
+                            <option value="Europees">Europees</option>
+                            <option value="Frans">Frans</option>
+                            <option value="Grieks">Grieks</option>
+                            <option value="Hollands">Hollands</option>
+                            <option value="Indisch">Indisch</option>
+                            <option value="Indonesisch">Indonesisch</option>
+                            <option value="Italiaans">Italiaans</option>
+                            <!--<option value="Japans">Japans</option>-->
+                            <!--<option value="Koreaans">Koreaans</option>-->
+                            <option value="Mexicaans">Mexicaans</option>
+                            <option value="Midden-Oosters">Midden-Oosters</option>
+                            <option value="Spaans">Spaans</option>
+                            <option value="Surinaams">Surinaams</option>
+                            <option value="Zuid-Afrikaans">Zuid-Afrikaans</option>
+                            <option value="Niet specifiek">Niet specifiek</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <select id="menugang" class="soort_select" title="Menugang..." name="Menugang" multiple>
+                            <option value="ontbijt">Ontbijt</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="voorgerecht">Voorgerecht</option>
+                            <option value="hoofdgerecht">Hoofdgerecht</option>
+                            <option value="bijgerecht">Bijgerecht</option>
+                            <option value="desserts">Dessert</option>
+                            <option value="snack">Snack</option>
+                            <option value="gebak">Gebak</option>
+                            <!--<option value="ontbijt">Ontbijt</option>
+                            <option value="brunch">Brunch</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="voorgerecht">Voorgerecht</option>
+                            <option value="tussengerecht">Tussengerecht</option>
+                            <option value="hoofdgerecht">Hoofdgerecht</option>
+                            <option value="desserts">Dessert</option>
+                            <option value="bijgerecht">Bijgerecht</option>
+                            <option value="klein gerecht">Klein gerecht</option>
+                            <option value="snack">Snack</option>
+                            <option value="tussendoortje">Tussendoortje</option>
+                            <option value="gebak">Gebak</option>
+                            <option value="hapje">Hapje</option>-->
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <select id="vvv" class="soort_select" title="Vlees opties..." name="Vvv" multiple>
+                            <option value="Vlees">Vlees</option>
+                            <option value="Vis">Vis</option>
+                            <option value="Gevogelte">Gevogelte</option>
+                            <option value="Vegetarisch">Vegetarisch</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <select id="cook" class="soort_select" title="Bereidingsstijl..." name="cook" multiple>
+                            <option value="BBQ">BBQ</option>
+                            <option value="Frituur">Frituur</option>
+                            <option value="Oven">Oven</option>
+                            <option value="Wok">Wok</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <select id="seizoen" class="soort_select" title="Seizoen..." name="Seizoen" multiple>
+                            <option value="All-Round">All-Round</option>
+                            <option value="Zomer">Zomer</option>
+                            <option value="Herfst">Herfst</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Lente">Lente</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <select id="gelegenheid" class="soort_select" title="Gelegenheid..." name="Gelegenheid" multiple>
+                            <option value="Valentijn">Valentijn</option>
+                            <option value="Pasen">Pasen</option>
+                            <option value="Koningsdag">Koningsdag</option>
+                            <option value="Moederdag">Moederdag</option>
+                            <option value="Sinterklaas">Sinterklaas</option>
+                            <option value="Kerst">Kerst</option>
+                            <option value="Oud & Nieuw">Oud & Nieuw</option>
+                            <option value="Feestje">Feestje</option>
+                        </select>
+                    </div>
+                    <div class="filter">
+                        <div class="autocomplete" style="width:220px;">
+                            <input id="benodigdeIngredienten" type="text" name="benodigdeIngredienten" placeholder="Ingredienten...">
+                        </div>
+                    </div>
+                    <div class="filter">
+                        <div class="autocomplete" style="width:220px;">
+                            <input id="verbodenIngredienten" type="text" name="verbodenIngredienten" placeholder="Ingredienten NIET...">
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <button id="zoek_button" onclick="search()">Zoek</button> 
+            </div>
+            <div id="recepten">
+                Wachten op laden van bestand...
+            </div>
+        </div>
+
+        <footer>
+            Copyright by: Stan Meijerink & Simone van den Brink
+            <a href="Bekijk Recept.html" target="_blank">Page</a>
+        </footer>
+        
+        <div class="boodschappen_overlay" id="bood_box">
+            <div class="blocker" onclick="toggleBoodschappenBox()"></div>
+            <div class="boodschappen_box" id="boodschappen_box">
+                
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('.soort_select').selectpicker();
+            })
+
+            document.getElementById("bood_box").style.display = "none";
+
+            /*initiate the autocomplete function, and pass along the ingredientenOpties array as possible autocomplete values:*/
+            autocomplete(document.getElementById("benodigdeIngredienten"), ingredientenOpties);
+            autocomplete(document.getElementById("verbodenIngredienten"), ingredientenOpties);
+        </script>
+
+    </body>
+</html>
