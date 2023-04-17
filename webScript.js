@@ -100,7 +100,7 @@ function displayJsonToHtmlTable(jsonData){
                 //             + '<button class="persButton" onclick="changePersonen(' + jsonCounter + ', true)">+</button></div>';
                 // test_data += '</div></div>';
             htmlData += '<tr>';
-            htmlData += '<td><a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '"></a></td>'; 
+            htmlData += '<td><a class="receptLink" id="receptLink' + (jsonCounter-1) + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '"></a></td>'; 
             htmlData += '<td class="receptDet">';
             htmlData += '<p class="receptTitle" onclick="setCookie(' + jsonCounter +');window.open(\'Bekijk Recept.html\', \'_blank\');">' + row['Naam recept'] + '</p>';
             htmlData += '<p>Duur: <span class="recDuurId">' + row["Duur"] + '</span>Soort: <span class="recSoortId">' + row["Soort"] + '</span>Keuken: <span class="recKeukenId">' + row["Keuken"] + '</span></p>';
@@ -256,7 +256,7 @@ function search() {
             htmlData += '<tr>';
             htmlData += '<td><a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '"></a></td>'; 
             htmlData += '<td class="receptDet">';
-            htmlData += '<p class="receptTitle" onclick="setCookie(' + jsonCounter +');window.open(\'Bekijk Recept.html\', \'_blank\');">' + row['Naam recept'] + '</p>';
+            htmlData += '<p class="receptTitle" onclick="setCookie(' + (jsonCounter-1) +');window.open(\'Bekijk Recept.html\', \'_blank\');">' + row['Naam recept'] + '</p>';
             //htmlData += '<p>Duur: ' + row["Duur"] + '<br>Soort: ' + row["Soort"] + '<br>Keuken: ' + row["Keuken"] + '</p>';
             htmlData += '<p>Duur: <span class="recDuurId">' + row["Duur"] + '</span>Soort: <span class="recSoortId">' + row["Soort"] + '</span>Keuken: <span class="recKeukenId">' + row["Keuken"] + '</span></p>';
             htmlData += '</td><td class="receptButton"><input onclick="addOrRemoveRecept(' + jsonCounter + ')" type="checkbox" class="check" id="addRemoveButton"';
