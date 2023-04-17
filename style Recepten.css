@@ -344,3 +344,7 @@ input[type=number] {
 .recept_lijst {
     float: left;
 }
+
+#ingredientenTabel {
+    border: none;
+}
