@@ -10,7 +10,7 @@ function bekijkReceptenPaginaLaden() {
 function getReceptOmTeBekijken(receptID) {
     console.log(document.cookie);
     console.log(document.cookie.split("=")[1]);
-    console.log(JSON.parse(document.cookie));
+    console.log(JSON.parse(document.cookie.split("=")[1]));
     let row = JSON.parse(document.cookie.split("=")[1])-1;
     return row;
 }
