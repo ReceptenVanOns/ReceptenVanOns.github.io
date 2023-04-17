@@ -116,7 +116,7 @@ function displayJsonToHtmlTable(jsonData){
         table_div.innerHTML= htmlData;
         fileLoaded = true;
         //init_links(jsonIDsList);
-        setCookie();
+        setCookie(3);
         console.log(jsonData[3]);
         console.log(decodeURIComponent(document.cookie));
     }else{
@@ -954,13 +954,12 @@ var ingredientenOpties = ["Aardappel", "Avocado", "Boontjes", "Bosui", "Champign
 
 
 
-function setCookie() {
+function setCookie(receptID) {
     let exdays = 1;
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
-    console.log(jsonData[3])
-    document.cookie = "jsonData=" + jsonData[3] + "; expires=" + expires + "; path=/";
+    document.cookie = "jsonData=" + JSON.stringify(jsonData[receptID]) + "; expires=" + expires + "; path=/";
 }
 
 function getCookie() {
