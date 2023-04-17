@@ -1,17 +1,17 @@
 //functions for the seperate page below:
 function bekijkReceptenPaginaLaden() {
-    var row = getReceptOmTeBekijken(3);
+    var row = getReceptOmTeBekijken();
     bekijkReceptenTitelLaden(row);
     bekijkReceptenDetailsLaden(row);
     bekijkReceptenFotoLaden(row);
     bekijkReceptenIngredientenLaden(row);
 }
 
-function getReceptOmTeBekijken(receptID) {
+function getReceptOmTeBekijken() {
     console.log(document.cookie);
     console.log(document.cookie.split("=")[1]);
     console.log(JSON.parse(document.cookie.split("=")[1]));
-    let row = JSON.parse(document.cookie.split("=")[1])-1;
+    let row = JSON.parse(document.cookie.split("=")[1]);
     return row;
 }
 
