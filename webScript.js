@@ -562,6 +562,10 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "garnalen";
         gekozenIngredient += " " + "garnaaltjes";
         gekozenIngredient += " " + "garnaaltje";
+        gekozenIngredient += " " + "diepvrieswokgarnalen";
+        gekozenIngredient += " " + "wokgarnalen";
+        gekozenIngredient += " " + "cocktailgarnalen";
+        gekozenIngredient += " " + "tijgergarnalen";
     }
     else if (gekozenIngredient == "courgette") {
         gekozenIngredient += " " + "courgettes";
