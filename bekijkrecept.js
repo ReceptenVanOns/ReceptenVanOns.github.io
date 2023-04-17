@@ -23,7 +23,8 @@ function bekijkReceptenTitelLaden(row) {
 function bekijkReceptenDetailsLaden(row) {
     var bekRecDetails = document.getElementById("ReceptenDetails");
     var keywords = getKeywords(row);
-    var htmlCode = "<p>Recept keywords:";
+    var htmlCode = "<p>Duur: " + row["Duur"] + "</p>";
+    htmlCode += "<p>Keywords:";
     for (var i=0; i<keywords.length; i++) {
         htmlCode += " <span>" + keywords[i] + "</span> ";
     }
