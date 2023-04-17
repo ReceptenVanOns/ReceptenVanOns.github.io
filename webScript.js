@@ -959,6 +959,7 @@ function setCookie() {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
+    console.log(jsonData[3])
     document.cookie = "jsonData=" + jsonData[3] + "; expires=" + expires + "; path=/";
 }
 
