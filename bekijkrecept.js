@@ -8,6 +8,9 @@ function bekijkReceptenPaginaLaden() {
 }
 
 function getReceptOmTeBekijken(receptID) {
+    console.log(document.cookie);
+    console.log(document.cookie.split("=")[1]);
+    console.log(JSON.parse(document.cookie));
     let row = JSON.parse(document.cookie.split("=")[1])-1;
     return row;
 }
