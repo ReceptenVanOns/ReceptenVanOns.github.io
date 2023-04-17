@@ -72,7 +72,9 @@ function getKeywords(row) {
     if (row['Alcohol'] == "Ja") {
         keywordsList.push("Alcohol");
     }
-    keywordsList.push(row['Vlees of']);
+    if (row['Vlees of'] != "Onbekend") {
+        keywordsList.push(row['Vlees of']);
+    }
     if (row['Soort'] != "Onbekend") {
         keywordsList.push(row['Soort']);
     } 
