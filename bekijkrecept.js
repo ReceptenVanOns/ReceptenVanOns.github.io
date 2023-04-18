@@ -26,7 +26,7 @@ function bekijkReceptenDetailsLaden(row) {
     var htmlCode = "<p>Duur: " + row["Duur"] + "</p>";
     htmlCode += "<p>Keywords:";
     for (var i=0; i<keywords.length; i++) {
-        htmlCode += " <span>" + keywords[i] + "</span> ";
+        htmlCode += " <span class='keywordDiv'>" + keywords[i] + "</span> ";
     }
     htmlCode+= "</p><br>";
 
