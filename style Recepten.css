@@ -348,3 +348,10 @@ input[type=number] {
 #ingredientenTabel {
     border: none;
 }
+
+.keywordDiv {
+    background-color: cadetblue;
+    border: 3px solid rgb(81, 130, 130);
+    border-radius: 5px;
+    padding: 5px;
+}
