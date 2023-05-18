@@ -51,6 +51,33 @@ var fileLoaded = false;
 // }
 
 
+function excelFileToJSONAutomatic() {
+    //console.log(file)
+    var file = "recepten_automatisch.xlsx";
+    try {
+      //var reader = new FileReader();
+      //reader.readAsBinaryString(file);
+      //reader.onload = function(e) {
+      fetch(file)   
+          .then(response => response.arrayBuffer())
+          .then(data => {
+          //var data = e.target.result;
+          var workbook = XLSX.read(data, {
+              type : 'binary'
+          });
+          var result = {};
+          var firstSheetName = workbook.SheetNames[0];
+          //reading only first sheet data
+          jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName]);
+          //alert(JSON.stringify(jsonData));
+          //displaying the json result into HTML table
+          displayJsonToHtmlTable(jsonData);
+          }
+      }catch(e){
+          console.error(e);
+      }
+}
+
 function excelFileToJSON(file){
     //console.log(file)
     //var file = "recepten_automatisch.xlsx";
