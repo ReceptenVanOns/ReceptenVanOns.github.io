@@ -54,7 +54,7 @@ var fileLoaded = false;
 function excelFileToJSONAutomatic() {
     //console.log(file)
     var file = "recepten_automatisch.xlsx";
-    try {
+    //try {
       //var reader = new FileReader();
       //reader.readAsBinaryString(file);
       //reader.onload = function(e) {
@@ -72,10 +72,10 @@ function excelFileToJSONAutomatic() {
           //alert(JSON.stringify(jsonData));
           //displaying the json result into HTML table
           displayJsonToHtmlTable(jsonData);
-          }
-      }catch(e){
+          })
+          .catch(e => {
           console.error(e);
-      }
+      });
 }
 
 function excelFileToJSON(file){
