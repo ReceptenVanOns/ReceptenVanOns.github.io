@@ -78,10 +78,10 @@ table, th, td {
     max-width: 250px;
 }
 
-#recepten {
+/*#recepten {
     float: left;
     max-width: 70%;
-}
+}*/
 
 .content::after {
     content: "";
@@ -142,6 +142,9 @@ input[type=number] {
 
 #recepten {
     margin: 1%;
+    display: flex;
+    padding: 2%;
+    flex-wrap: wrap;
 }
 
 /*table{
@@ -265,9 +268,10 @@ input[type=number] {
 }
 
 .persButton {
-    width: 30px;
+    width: 15px;
     background-color: rgb(119, 199, 199);
-    border-radius: 8px;
+    border-radius: 4px;
+    line-height: 0.75em;
 }
 
 #addRemoveButton {
@@ -287,40 +291,44 @@ input[type=number] {
 }
 
 .recept_box{
-    width: 100%;
+    width: 23%;
     overflow: hidden;
-    border: 1px solid black;
+    margin: 1%;
+    position: relative;  
+    /*border: 1px solid black;*/
 }
 
+.recept_box img {
+    width: 100%;
+}
+
+/*
 .receptLink{
-    /*width: 25%;*/
+    width: 25%;
     height: 200px;
     float: left;
-}
+}*/
 
 .receptDet {
-    /*width: 60%;*/
-    margin: 2%;
-    /*float: left;*/
+    background-color: rgba(255,255,255,0.5);
+    padding: 2%;
+    color: black;
+    text-decoration: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right:0;
+    font-weight: bold;
 }
 
 .receptButton {
     /*height: 200px;*/
     /*float: right;*/
-    border: 1px solid black;
-    padding: 5px;
+    margin: 5px;
     /*padding-top: 90px;*/
-    min-width: 150px;
-}
-
-.receptTitle {
-    font-size: large;
-    font-weight: bold;
-}
-
-.recept_box a img{
-    /*width: 100%;*/
-    height: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .recept_box ::after{
@@ -350,8 +358,9 @@ input[type=number] {
 }
 
 .keywordDiv {
-    background-color: cadetblue;
-    border: 3px solid rgb(81, 130, 130);
-    border-radius: 5px;
-    padding: 5px;
+    float: left;
+}
+
+.autocomplete textarea {
+    height: 40px;
 }
