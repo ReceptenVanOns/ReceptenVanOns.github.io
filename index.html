@@ -78,9 +78,9 @@
                             <option value="Amerikaans">Amerikaans</option>
                             <option value="Australisch">Australisch</option>
                             <option value="Aziatisch">Aziatisch</option>
-                            <option value="Belgisch">Belgisch</option>
+                             <!--<option value="Belgisch">Belgisch</option>-->
                             <!--<option value="Chinees">Chinees</option>-->
-                            <option value="Duits">Duits</option>
+                            <!--<option value="Duits">Duits</option>-->
                             <option value="Europees">Europees</option>
                             <option value="Frans">Frans</option>
                             <option value="Grieks">Grieks</option>
@@ -162,12 +162,12 @@
                     </div>
                     <div class="filter">
                         <div class="autocomplete" style="width:220px;">
-                            <input id="benodigdeIngredienten" type="text" name="benodigdeIngredienten" placeholder="Ingredienten...">
+                            <textarea id="benodigdeIngredienten" type="text" name="benodigdeIngredienten" placeholder="Ingredienten..."></textarea>
                         </div>
                     </div>
                     <div class="filter">
                         <div class="autocomplete" style="width:220px;">
-                            <input id="verbodenIngredienten" type="text" name="verbodenIngredienten" placeholder="Ingredienten NIET...">
+                            <textarea id="verbodenIngredienten" type="text" name="verbodenIngredienten" placeholder="Ingredienten NIET..."></textarea>
                         </div>
                     </div>
                     <div style="clear: both;"></div>
@@ -175,7 +175,33 @@
                 <button id="zoek_button" onclick="search()">Zoek</button> 
             </div>
             <div id="recepten">
-                Wachten op laden van bestand...
+                Wachten...
+                <!--
+                    htmlData += '<tr>';
+            htmlData += '<td><a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="Recepten_fotos/' + row['Naam recept'] + ' foto.jpg"></a></td>'; 
+            htmlData += '<td class="receptDet">';
+            htmlData += '<p class="receptTitle">' + row['Naam recept'] + '</p>';
+            htmlData += '<p>Duur: <span class="recDuurId">' + row["Duur"] + '</span>Soort: <span class="recSoortId">' + row["Soort"] + '</span>Keuken: <span class="recKeukenId">' + row["Keuken"] + '</span></p>';
+            htmlData += '</td></tr>';
+                -->
+
+                <!-- htmldata += '<div class="recept_box">';
+                htmldata += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="Recepten_fotos/' + row['Naam recept'] + ' foto.jpg">';
+                htmldata += '<div class="receptDet">';
+                htmldata += row['Naam recept'] + '<br>';
+                htmldata += '&#128337;' + row['duur'];
+                htmldata += '</div></a></div>';  -->
+                <!-- <div class="recept_box">
+                    <a class="receptLink" id="receptLink1" href="" target="_blank">
+                        <img src="Recepten_fotos/Aardappelschotel met sperzieboontjes en braadworst  foto.jpg">
+                        <div class="receptDet">
+                            Recept 1 <br>
+                            &#128337;15 min
+                        </div>
+                    </a>
+                </div> -->
+
+                
             </div>
         </div>
 
@@ -200,9 +226,6 @@
             /*initiate the autocomplete function, and pass along the ingredientenOpties array as possible autocomplete values:*/
             autocomplete(document.getElementById("benodigdeIngredienten"), ingredientenOpties);
             autocomplete(document.getElementById("verbodenIngredienten"), ingredientenOpties);
-            
-            /*experimental upload excel automatically*/
-            excelFileToJSONAutomatic();
         </script>
 
     </body>
