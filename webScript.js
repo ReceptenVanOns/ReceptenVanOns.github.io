@@ -1537,7 +1537,6 @@ function completeSearchOnIngredient(gekozenIngredient) {
     else if (gekozenIngredient == "satesaus") {
         gekozenIngredient += " " + "satésaus";
         gekozenIngredient += " " + "pindasaus";
-        gekozenIngredient += " " + "bechamelsaus";
     }
     else if (gekozenIngredient == "saus") {
         gekozenIngredient += " " + "adobosaus";
