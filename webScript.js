@@ -50,6 +50,10 @@ var fileLoaded = false;
 //     window.open('test.html', '_blank');
 // }
 
+function automaticUpload(){
+    jsonData = jsonDataStringify;
+    displayJsonToHtmlTable(jsonData);
+}
 
 function excelFileToJSON(file){
     //console.log(file)
