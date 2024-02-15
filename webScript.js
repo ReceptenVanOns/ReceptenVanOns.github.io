@@ -114,7 +114,7 @@ function displayJsonToHtmlTable(jsonData){
             // htmlData += '<p>Duur: <span class="recDuurId">' + row["Duur"] + '</span>Soort: <span class="recSoortId">' + row["Soort"] + '</span>Keuken: <span class="recKeukenId">' + row["Keuken"] + '</span></p>';
             // htmlData += '</td></tr>';
             htmlData += '<div class="recept_box">';
-            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="Recepten_fotos/' + row['Naam recept'] + ' foto.jpg">';
+            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '">';
             htmlData += '<div class="receptDet">';
             htmlData += row['Naam recept'] + '<br>';
             htmlData += '&#128337;' + row['Duur'];
@@ -341,7 +341,7 @@ function search() {
             }
             
             htmlData += '<div class="recept_box">';
-            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="Recepten_fotos/' + row['Naam recept'] + ' foto.jpg">';
+            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '">';
             htmlData += '<div class="receptDet">';
             htmlData += row['Naam recept'] + '<br>';
             htmlData += '&#128337;' + row['Duur'];
