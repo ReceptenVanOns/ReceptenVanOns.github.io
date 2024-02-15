@@ -3,6 +3,7 @@ var gekozenReceptenLijst = [];
 var gekozenReceptenDict = {};
 var ingredintenDict = {};
 var fileLoaded = false;
+var sortLoaded = false;
 // var pressHoldDuration = 300;
 // let pressHoldCounter = 0;
 // let pressHoldEvent = new CustomEvent("pressHold");
@@ -51,9 +52,12 @@ var fileLoaded = false;
 // }
 
 function automaticUpload(){
+    //console.log(jsonDataStringify);
+    //jsonData = require(["./data.json"], (json) => { console.log(json); });
     jsonData = jsonDataStringify;
     displayJsonToHtmlTable(jsonData);
 }
+
 
 function excelFileToJSON(file){
     //console.log(file)
@@ -85,7 +89,7 @@ function displayJsonToHtmlTable(jsonData){
     var jsonCounter = 0;
     //var jsonIDsList = []
     if(jsonData.length>0){
-        var htmlData='<p id="aantal_gevonden"> Er zitten ' + jsonData.length + ' recepten in het excel bestand</p><br>';
+        var htmlData='<div id="zoek-info"><p id="aantal_gevonden"> Er zitten ' + jsonData.length + ' recepten in het excel bestand</p><br></div>';
         //htmlData+='<table><tr><th>Foto</th><th>Naam recept</th><th>Duur</th><th>Soort</th><th>Keuken</th><th>Menugang</th></tr>';
         //htmlData += '<table class="recept_box" id="recept_table">';
         test_data = "";
@@ -110,7 +114,7 @@ function displayJsonToHtmlTable(jsonData){
             // htmlData += '<p>Duur: <span class="recDuurId">' + row["Duur"] + '</span>Soort: <span class="recSoortId">' + row["Soort"] + '</span>Keuken: <span class="recKeukenId">' + row["Keuken"] + '</span></p>';
             // htmlData += '</td></tr>';
             htmlData += '<div class="recept_box">';
-            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '">';
+            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="Recepten_fotos/' + row['Naam recept'] + ' foto.jpg">';
             htmlData += '<div class="receptDet">';
             htmlData += row['Naam recept'] + '<br>';
             htmlData += '&#128337;' + row['Duur'];
@@ -186,6 +190,22 @@ function search() {
             selectedKeuken.push(option.value);
         }
     }
+    for (var i=0;i < selectedKeuken.length;i++) {
+        if (selectedKeuken[i] == "Europees") {
+            selectedKeuken.push("Belgisch");
+            selectedKeuken.push("Duits");
+            selectedKeuken.push("Frans");
+            selectedKeuken.push("Grieks");
+            selectedKeuken.push("Hollands");
+            selectedKeuken.push("Italiaans");
+            selectedKeuken.push("Spaans");
+        }
+        else if (selectedKeuken[i] == "Aziatisch") {
+            selectedKeuken.push("Chinees");
+            selectedKeuken.push("Japans");
+            selectedKeuken.push("Koreaans");
+        }
+    }
     var selectedMenugang = [];
     for (var option of document.getElementById('menugang').options)
     {
@@ -240,10 +260,50 @@ function search() {
     var counterLength = 0;
     //var htmlData='<table><tr><th>Foto</th><th>Naam recept</th><th>Duur</th><th>Soort</th><th>Keuken</th><th>Menugang</th><th>Boodschappenlijst</th></tr>';
     //htmlData = '<table class="recept_box" id="recept_table">';
+
+    //get sorting data
+    jsonData_sorted = jsonData;
+    var sortkeukenChosen = false;
+    var sortsoortChosen = false;
+    if (sortLoaded) {
+        var chosenSorting = document.getElementById("sorteren").value;
+        if (chosenSorting == "Duur") {
+            jsonData_sorted.sort((a, b) => parseFloat(a.Duur) - parseFloat(b.Duur));
+        } else if (chosenSorting == "Naam") {
+            jsonData_sorted.sort((a, b) => {
+            if (a["Naam recept"] < b["Naam recept"])
+                return -1;
+            if (a["Naam recept"] > b["Naam recept"])
+                return 1;
+            return 0;
+            });
+        } else if (chosenSorting == "Soort") {
+            jsonData_sorted.sort((a, b) => {
+            if (a["Soort"] < b["Soort"])
+                return -1;
+            if (a["Soort"] > b["Soort"])
+                return 1;
+            return 0;
+            });
+            sortsoortChosen = true;
+        } else if (chosenSorting == "Keuken") {
+            jsonData_sorted.sort((a, b) => {
+            if (a["Keuken"] < b["Keuken"])
+                return -1;
+            if (a["Keuken"] > b["Keuken"])
+                return 1;
+            return 0;
+            });
+            sortkeukenChosen = true;
+        } 
+    }
+
+    oldkeuken = null;
+    oldsoort = null;
     htmlData = "";
     var jsonCounter = 0;
-    for(var i=0;i<jsonData.length;i++){
-        var row=jsonData[i];
+    for(var i=0;i<jsonData_sorted.length;i++){
+        var row=jsonData_sorted[i];
         var timeFilter = searchOnMinutes(row, maxDuur);
         var aantalIngredientenFilter = searchOnAantalIngredienten(row, maxIngredienten);
         var gezondFilter = searchOnGezond(row, gezond);
@@ -271,8 +331,17 @@ function search() {
             // //htmlData += '<p>Duur: ' + row["Duur"] + '<br>Soort: ' + row["Soort"] + '<br>Keuken: ' + row["Keuken"] + '</p>';
             // htmlData += '<p>Duur: <span class="recDuurId">' + row["Duur"] + '</span>Soort: <span class="recSoortId">' + row["Soort"] + '</span>Keuken: <span class="recKeukenId">' + row["Keuken"] + '</span></p>';
             // htmlData += '</td><td class="receptButton"><input onclick="addOrRemoveRecept(' + jsonCounter + ')" type="checkbox" class="check" id="addRemoveButton"';
+            
+            //check if break for line is needed
+            if (sortsoortChosen &&  oldsoort != row["Soort"]) {
+                htmlData += '<div id="zoek-info"><h3>'+ row["Soort"] +'</h3></div>';
+            }
+            if (sortkeukenChosen &&  oldkeuken != row["Keuken"]) {
+                htmlData += '<div id="zoek-info"><h3>'+ row["Keuken"] +'</h3></div>';
+            }
+            
             htmlData += '<div class="recept_box">';
-            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '">';
+            htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="Recepten_fotos/' + row['Naam recept'] + ' foto.jpg">';
             htmlData += '<div class="receptDet">';
             htmlData += row['Naam recept'] + '<br>';
             htmlData += '&#128337;' + row['Duur'];
@@ -302,13 +371,33 @@ function search() {
             htmlData += '</div></div>'; 
             counterLength++;
         }
+        // else {
+        //     console.log(row);
+        //     console.log(timeFilter);
+        //     console.log(aantalIngredientenFilter);
+        //     console.log(gezondFilter);
+        //     console.log(budgetFilter);
+        //     console.log(moeilijkheidsgraadFilter);
+        //     console.log(soortFilter);
+        //     console.log(keukenFilter);
+        //     console.log(menugangFilter);
+        //     console.log(vvvFilter);
+        //     console.log(cookFilter);
+        //     console.log(seizoenFilter);
+        //     console.log(gelegenheidFilter);
+        //     console.log(ingredientFilter);
+        //     console.log(ingredientNotFilter);
+        // }
+        oldkeuken = row['Keuken'];
+        oldsoort = row['Soort'];
     }
     //<input onclick="console.log('echo')" type="checkbox" class="check" id="test" name="tes" value="test">
-    var foundData='<div> <p id="aantal_gevonden">' + counterLength + ' van de ' + jsonData.length + ' recepten matchen met je zoekopdracht</p>' + '<select name="sorteren" id="sorteren" onchange="sortTable()">' +
+    var foundData='<div id="zoek-info"> <p id="aantal_gevonden">' + counterLength + ' van de ' + jsonData.length + ' recepten matchen met je zoekopdracht</p>' + '<select name="sorteren" id="sorteren" onchange="search()">' +
                 '<option value="none" selected disabled hidden>Sorteren op...</option> <option value="Naam">Naam</option> <option value="Duur">Duur</option> <option value="Soort">Soort</option> <option value="Keuken">Keuken</option> </select> </div>';
     htmlData = foundData + htmlData;
     //htmlData += '</table>';
     table_div.innerHTML= htmlData;
+    sortLoaded = true;
 
     //hide personen on default
     var personenClasses = document.getElementsByClassName("persChange");
@@ -405,6 +494,7 @@ function searchOnSoort(row, selectedSoort) {
 
 function searchOnKeuken(row, selectedKeuken) {
     //console.log("selected keuken is: " + selectedKeuken);
+    //var selectedKeukenCheck = selectedKeuken;
     if (selectedKeuken.length == 0) {
         //console.log("empty");
         return true;
@@ -412,22 +502,6 @@ function searchOnKeuken(row, selectedKeuken) {
     else {
         var currentKeuken = row["Keuken"];
         for (var i=0;i < selectedKeuken.length;i++) {
-            if (selectedKeuken[i] == "Europees") {
-                selectedKeuken.push("Belgisch");
-                selectedKeuken.push("Duits");
-                selectedKeuken.push("Frans");
-                selectedKeuken.push("Grieks");
-                selectedKeuken.push("Hollands");
-                selectedKeuken.push("Italiaans");
-                selectedKeuken.push("Spaans");
-            }
-            else if (selectedKeuken[i] == "Aziatisch") {
-                selectedKeuken.push("Chinees");
-                selectedKeuken.push("Japans");
-                selectedKeuken.push("Koreaans");
-            }
-            console.log("index is", i, "and", selectedKeuken[i]);
-            console.log(selectedKeuken);
             if (selectedKeuken[i] == currentKeuken) {
                 //console.log("found");
                 return true;
@@ -597,6 +671,7 @@ function completeSearchOnIngredient(gekozenIngredient) {
     else if (gekozenIngredient == "alcohol") {
         gekozenIngredient += " " + "bier";
         gekozenIngredient += " " + "bokbier";
+        gekozenIngredient += " " + "cognac";
         gekozenIngredient += " " + "witbier";
         gekozenIngredient += " " + "gemberbier";
         gekozenIngredient += " " + "likeur";
@@ -1261,6 +1336,7 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "rundergehaktballetje";
         gekozenIngredient += " " + "rundergehaktballetjes";
 
+        gekozenIngredient += " " + "half-om-half";
         gekozenIngredient += " " + "half-om-halfgehakt";
         gekozenIngredient += " " + "kipgehakt";
         gekozenIngredient += " " + "lamsgehakt";
@@ -1375,6 +1451,8 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "emmentaler";
         gekozenIngredient += " " + "feta";
         gekozenIngredient += " " + "geitenkaas";
+        gekozenIngredient += " " + "gruyère";
+        gekozenIngredient += " " + "gruyere";
         gekozenIngredient += " " + "kazen";
         gekozenIngredient += " " + "komijnekaas";
         gekozenIngredient += " " + "kruidenkaas";
@@ -2046,6 +2124,283 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "vanille-extract";
         gekozenIngredient += " " + "vanille-essence";
         gekozenIngredient += " " + "vanillesuiker";
+
+    }
+    else if (gekozenIngredient == "vegetarischtest") {
+        gekozenIngredient += " " + "vegetarisch";
+        gekozenIngredient += " " + "vegetarische";
+        gekozenIngredient += " " + "vegan";
+        gekozenIngredient += " " + "vega";
+
+//vleesvervangers
+        gekozenIngredient += " " + "groenteburger";
+        gekozenIngredient += " " + "groenteburgers";
+        gekozenIngredient += " " + "falafel";
+
+//vegetarisch is moeilijk te filteren dus mogelijk toch grotendeels met de hand en filter uit de rest
+
+    }
+    else if (gekozenIngredient == "gevogeltetest") {
+
+//alternatieven van vogel zijn er niet
+
+//alternatieven van kip
+        gekozenIngredient += " " + "drumsticks";
+        gekozenIngredient += " " + "kip";
+        gekozenIngredient += " " + "kipbraadworsten";
+
+        gekozenIngredient += " " + "kipdijfilet";
+        gekozenIngredient += " " + "kipdijfilets";
+        gekozenIngredient += " " + "kipdrumsticks";
+
+        gekozenIngredient += " " + "kipfilet";
+        gekozenIngredient += " " + "kipfiletblokjes";
+        gekozenIngredient += " " + "kipfilethaasjes";
+        gekozenIngredient += " " + "kipfiletreepjes";
+        gekozenIngredient += " " + "kipfilets";
+
+        gekozenIngredient += " " + "kipgehakt";
+
+        gekozenIngredient += " " + "kipkarbonade";
+        gekozenIngredient += " " + "kipkluifjes";
+
+        gekozenIngredient += " " + "kippenbout";
+        gekozenIngredient += " " + "kippenboutje";
+        gekozenIngredient += " " + "kippenboutjes";
+        gekozenIngredient += " " + "kippenboutten";
+
+        gekozenIngredient += " " + "kippenpoot";
+        gekozenIngredient += " " + "kippenpoten";
+
+        gekozenIngredient += " " + "kippenvleugel";
+        gekozenIngredient += " " + "kipreepjes";
+        gekozenIngredient += " " + "kipschnitzels";
+        gekozenIngredient += " " + "kipspareribs";
+
+        gekozenIngredient += " " + "scharrelkipdijfilet";
+        gekozenIngredient += " " + "scharrelkipdijfilets";
+        gekozenIngredient += " " + "scharrelkipfiletreepjes";
+        gekozenIngredient += " " + "scharrelkipfilets";
+        gekozenIngredient += " " + "scharrelkiphaasjes";
+
+
+//alternatieven van kalkoen
+        gekozenIngredient += " " + "kalkoenfilet";
+        gekozenIngredient += " " + "kalkoenfilets";
+
+//alternatieven van 
+
+
+    }
+    else if (gekozenIngredient == "vistest") {
+        gekozenIngredient += " " + "vis";
+
+//filets
+        gekozenIngredient += " " + "ansjovisfilets";
+        gekozenIngredient += " " + "kabeljauwfilets";
+        gekozenIngredient += " " + "tilapiafilets";
+        gekozenIngredient += " " + "visfilets";
+        gekozenIngredient += " " + "witvisfilets";
+
+        gekozenIngredient += " " + "pijlinktvistubes";
+
+//garnaal
+        gekozenIngredient += " " + "garnaal";
+        gekozenIngredient += " " + "garnalen";
+        gekozenIngredient += " " + "garnaaltje";
+        gekozenIngredient += " " + "garnaaltjes";
+
+        gekozenIngredient += " " + "garnaalspies";
+        gekozenIngredient += " " + "garnaalspiesje";
+        gekozenIngredient += " " + "garnaalspiezen";
+        gekozenIngredient += " " + "garnaalspiesjes";
+        gekozenIngredient += " " + "garnalenspies";
+        gekozenIngredient += " " + "garnalenspiesje";
+        gekozenIngredient += " " + "garnalenspiezen";
+        gekozenIngredient += " " + "garnalenspiesjes";
+
+        gekozenIngredient += " " + "cocktailgarnaal";
+        gekozenIngredient += " " + "cocktailgarnalen";
+        gekozenIngredient += " " + "cocktailgarnaaltje";
+        gekozenIngredient += " " + "cocktailgarnaaltjes";
+
+        gekozenIngredient += " " + "diepvrieswokgarnaal";
+        gekozenIngredient += " " + "diepvrieswokgarnalen";
+        gekozenIngredient += " " + "diepvrieswokgarnaaltje";
+        gekozenIngredient += " " + "diepvrieswokgarnaaltjes";
+
+        gekozenIngredient += " " + "knoflookgarnaal";
+        gekozenIngredient += " " + "knoflookgarnalen";
+        gekozenIngredient += " " + "knoflookgarnaaltje";
+        gekozenIngredient += " " + "knoflookgarnaaltjes";
+
+        gekozenIngredient += " " + "tijgergarnaal";
+        gekozenIngredient += " " + "tijgergarnalen";
+        gekozenIngredient += " " + "tijgergarnaaltje";
+        gekozenIngredient += " " + "tijgergarnaaltjes";
+
+        gekozenIngredient += " " + "wokgarnaal";
+        gekozenIngredient += " " + "wokgarnalen";
+        gekozenIngredient += " " + "wokgarnaaltje";
+        gekozenIngredient += " " + "wokgarnaaltjes";
+
+//zalm
+        gekozenIngredient += " " + "zalm";
+        gekozenIngredient += " " + "zalmfilets";
+        gekozenIngredient += " " + "wilde-zalmeitjes";
+
+//ansjovis
+
+//garnalen zie ergens terug
+
+//tilapia
+
+//vis
+
+    }
+    else if (gekozenIngredient == "vleestest") {
+        gekozenIngredient += " " + "vlees";
+
+//alternatieven van ham
+        gekozenIngredient += " " + "achterham";
+        gekozenIngredient += " " + "ham";
+        gekozenIngredient += " " + "hamblokjes";
+        gekozenIngredient += " " + "hamlappen";
+        gekozenIngredient += " " + "hammen";
+        gekozenIngredient += " " + "hamreepjes";
+        gekozenIngredient += " " + "parmaham";
+        gekozenIngredient += " " + "schouderham";
+        gekozenIngredient += " " + "yorkham";
+
+//alternatieven van hamburger 
+        gekozenIngredient += " " + "hamburger";
+        gekozenIngredient += " " + "hamburgers";
+        gekozenIngredient += " " + "runderhamburger";
+        gekozenIngredient += " " + "runderhamburgers";
+
+//alternatieven voor lam
+        gekozenIngredient += " " + "lamsboutlapjes";
+        gekozenIngredient += " " + "lamsgehakt";
+        gekozenIngredient += " " + "lamskoteletten";
+
+//alternatieven van rund (koe is er niet)
+        gekozenIngredient += " " + "runderballetjes";
+        gekozenIngredient += " " + "runderbraadworst";
+        gekozenIngredient += " " + "runderbraadworsten";
+        gekozenIngredient += " " + "runderchipolata";
+        gekozenIngredient += " " + "rundergehakt";
+        gekozenIngredient += " " + "runderlap";
+        gekozenIngredient += " " + "runderriblappen";
+        gekozenIngredient += " " + "runderrookvlees";
+        gekozenIngredient += " " + "rundersoepballetjes";
+        gekozenIngredient += " " + "rundersoepblokjes";
+        gekozenIngredient += " " + "rundertartaar";
+        gekozenIngredient += " " + "rundertartaartjes";
+        gekozenIngredient += " " + "rundervinken"; 
+
+//alternatieven van spek
+        gekozenIngredient += " " + "spek";
+        gekozenIngredient += " " + "ontbijtspek";
+        gekozenIngredient += " " + "ontbijtspekblok";
+        gekozenIngredient += " " + "ontbijtspekblokjes";
+        gekozenIngredient += " " + "ontbijtspekjes";
+        gekozenIngredient += " " + "spekblok";
+        gekozenIngredient += " " + "spekblokje";
+        gekozenIngredient += " " + "spekblokjes";
+        gekozenIngredient += " " + "spekblokken";
+        gekozenIngredient += " " + "spekjes";
+        gekozenIngredient += " " + "speklap";
+        gekozenIngredient += " " + "speklapje";
+        gekozenIngredient += " " + "speklapjes";
+        gekozenIngredient += " " + "speklappen";
+        gekozenIngredient += " " + "spekreep";
+        gekozenIngredient += " " + "spekreepje";
+        gekozenIngredient += " " + "spekreepjes";
+
+//alternatieven van varken
+        gekozenIngredient += " " + "varkensbraadworsten"; 
+        gekozenIngredient += " " + "varkenschipolataworstjes";
+        gekozenIngredient += " " + "varkensfiletlapjes";
+        gekozenIngredient += " " + "varkenshaas";
+        gekozenIngredient += " " + "varkenshaasjes";
+        gekozenIngredient += " " + "varkenslapje";
+        gekozenIngredient += " " + "varkenssaucijzen";
+
+//alternatieven van gehaktvlees
+        gekozenIngredient += " " + "gehaktbal";
+        gekozenIngredient += " " + "gehaktballen";
+        gekozenIngredient += " " + "gehaktballetje";
+        gekozenIngredient += " " + "gehaktballetjes";
+
+        gekozenIngredient += " " + "rundergehaktbal";
+        gekozenIngredient += " " + "rundergehaktballen";
+        gekozenIngredient += " " + "rundergehaktballetje";
+        gekozenIngredient += " " + "rundergehaktballetjes";
+
+        gekozenIngredient += " " + "half-om-half";
+        gekozenIngredient += " " + "half-om-halfgehakt";
+        gekozenIngredient += " " + "half";
+//er is nog geen recept waarbij het woord half voor iets anders wordt bedoeld dan half om half gehakt
+
+
+//alternatieven van lappen vlees
+        gekozenIngredient += " " + "filetlapjes";
+        gekozenIngredient += " " + "lamsboutlapjes";
+        gekozenIngredient += " " + "sukadelappen";
+
+//saucijzen
+        gekozenIngredient += " " + "saucijzen";
+
+//tartaar
+        gekozenIngredient += " " + "tartaar";
+        gekozenIngredient += " " + "tartaartjes";
+
+//worsten
+        gekozenIngredient += " " + "braadworsten";
+        gekozenIngredient += " " + "cervelaatworst";
+        gekozenIngredient += " " + "chipolataworstjes";
+        gekozenIngredient += " " + "hotdogworsten";
+        gekozenIngredient += " " + "knakworst";
+        gekozenIngredient += " " + "knakworsten";
+        gekozenIngredient += " " + "merguezworstjes";
+        gekozenIngredient += " " + "ossenworst";
+        gekozenIngredient += " " + "rookworst";
+        gekozenIngredient += " " + "salamiworstjes";
+
+//karbonade
+        gekozenIngredient += " " + "ribkarbonades";
+        gekozenIngredient += " " + "schouderkarbonaden";
+        gekozenIngredient += " " + "schouderkarbonades";
+
+//verder
+        gekozenIngredient += " " + "bacon";
+        gekozenIngredient += " " + "biefstuk";
+        gekozenIngredient += " " + "biefstukken";
+        gekozenIngredient += " " + "biefreepjes";
+
+        gekozenIngredient += " " + "carpaccio";
+
+        gekozenIngredient += " " + "chorizo";
+        gekozenIngredient += " " + "chorizoblokjes";
+
+        gekozenIngredient += " " + "goudsalami";
+        gekozenIngredient += " " + "salami";
+
+        gekozenIngredient += " " + "hacheevlees";
+
+        gekozenIngredient += " " + "nasi/bamivlees";
+        gekozenIngredient += " " + "nasi-bamivlees";
+
+        gekozenIngredient += " " + "pancetta";
+        gekozenIngredient += " " + "rosbief";
+
+        gekozenIngredient += " " + "shoarmareepjes";
+        gekozenIngredient += " " + "shoarmavlees";
+
+        gekozenIngredient += " " + "smac";
+        gekozenIngredient += " " + "soepballetjes";
+
+
 //witlof heeft geen alternatief
     }
     else if (gekozenIngredient == "wortel") {
@@ -2090,6 +2445,10 @@ function searchOnIngredient(row, gekozenIngredienten) {
     var checkListIngred = [];
     gekozenIngredienten = gekozenIngredienten.replace(/\n/g, "");
     var getypteIngredientenLijst = gekozenIngredienten.split(" ");
+    if (getypteIngredientenLijst == "") {
+        return true;
+    }
+    //console.log(getypteIngredientenLijst);
     for (var i = 0; i<getypteIngredientenLijst.length; i++) {
         var gekozenIngredient = getypteIngredientenLijst[i];
         checkListIngred.push(searchOnSingleIngredient(row, gekozenIngredient));
@@ -2484,7 +2843,7 @@ var ingredientenOpties = ["Aardappel", "Alcohol", "Avocado", "Basilicum", "Biesl
 			"Ham", "Hamburger","Hoisinsaus","Honing", "Ijs", "Kaas", "Kaneel", "Kipfilet", "Knoflook", "Kokos", "Koriander", 
 			"Limoen", "Macaroni", "Mais", "Mozzarella", "Olieofboter", "Oregano", "Paprika", "Pesto", "Peterselie", "Pijnboompitten", "Pistache", "Prei", 
 			"Ravioli", "Rucola", "Rum", "Satesaus", "Saus", "Simonenogo", "Sjalotten","Sla", "Spaghetti", "Spek", "Stannogo", "Tijm", "Tomaat", 
-			"Ui", "Vanille", "Witlof", "Wortel", "Zoetzuresaus"];
+			"Ui", "Vanille", "Gevogeltetest", "Vegetarischtest", "Vleestest", "Witlof", "Wortel", "Zoetzuresaus"];
 
 
 

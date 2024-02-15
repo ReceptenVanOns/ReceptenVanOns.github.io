@@ -140,6 +140,10 @@ input[type=number] {
     margin-right: 20px;
 }
 
+#zoek-info {
+    width: 100%;
+}
+
 #recepten {
     margin: 1%;
     display: flex;
