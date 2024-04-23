@@ -272,7 +272,7 @@ input[type=number] {
 }
 
 .persButton {
-    width: 15px;
+    padding: 5px;
     background-color: rgb(119, 199, 199);
     border-radius: 4px;
     line-height: 0.75em;
@@ -286,6 +286,7 @@ input[type=number] {
 .persChange {
     float: left;
     margin-left: 10px;
+    margin-right: 15px;
 }
 
 .persNr {
