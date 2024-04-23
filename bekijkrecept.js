@@ -56,7 +56,7 @@ function bekijkReceptenIngredientenLaden(row) {
     //console.log("set ingredienten");
     var bekRecIngredienten = document.getElementById("ReceptenIngredienten");
     var ingredientenRecept = row['Ingredienten met aantallen'];
-    var ingredientenReceptList = ingredientenRecept.split(",");
+    var ingredientenReceptList = ingredientenRecept.split(" , ");
     var htmlCode = '<div class="persChange"><button class="persButton" onclick="changePersonen(false)">-</button>' 
     + '<p class="persNr">' + persAantal + ' personen</p>'
     + '<button class="persButton" onclick="changePersonen(true)">+</button></div><br><br>';
@@ -64,16 +64,16 @@ function bekijkReceptenIngredientenLaden(row) {
     for (var i=0; i<ingredientenReceptList.length; i++) {
         var ingredientMetAantal = ingredientenReceptList[i];
         var aantal = ingredientMetAantal.split(":")[1];
-        console.log(aantal);
+        //console.log(aantal);
         if (aantal.split(" ").length > 3) {
             var aantalSoort = aantal.split(" ")[2];
         }
         else {
             var aantalSoort = "";
         } 
-        console.log(aantalSoort);
+        //console.log(aantalSoort);
         var aantalGetal = stringToFloat(aantal.split(" ")[1]);
-        console.log(aantalGetal);
+        //console.log(aantalGetal);
         aantalGetal = aantalGetal * (persAantal / parseInt(row['Personen'].split(" ")[0])).toString();
         htmlCode += '<tr><td>' + ingredientMetAantal.split(":")[0] + '</td><td>' + aantalGetal + " " + aantalSoort + "</td></tr>";
     }
