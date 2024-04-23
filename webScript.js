@@ -1431,6 +1431,9 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "runderhamburger";
         gekozenIngredient += " " + "runderhamburgers";
     }
+    else if (gekozenIngredient == "hoisinsaus") {
+        gekozenIngredient += " " + "hoisin";
+    }
     else if (gekozenIngredient == "ijs") {
         gekozenIngredient += " " + "chocolade-ijs";
         gekozenIngredient += " " + "citroensorbetijs";
@@ -1503,6 +1506,13 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "korianderzaden";
         gekozenIngredient += " " + "korianderzaadjes";
     }
+    else if (gekozenIngredient == "lenteofbosui"){
+        gekozenIngredient += " " + "lente-/bosui";
+        gekozenIngredient += " " + "lente-/bosuitjes";
+        gekozenIngredient += " " + "bosui";
+        gekozenIngredient += " " + "bosuien";
+        gekozenIngredient += " " + "bosuitjes";
+    }
     else if (gekozenIngredient == "limoen"){
         gekozenIngredient += " " + "limoenen";
         gekozenIngredient += " " + "limoenrasp";
@@ -1517,6 +1527,125 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "maiskolven";
         gekozenIngredient += " " + "maiskolfjes";
         gekozenIngredient += " " + "maiskorrels";
+    }
+
+    else if (gekozenIngredient == "makkelijkeingredienten"){
+        gekozenIngredient += " " + "diepvries";
+        gekozenIngredient += " " + "bevroren";
+
+        gekozenIngredient += " " + "diepvriesbladerdeeg";
+
+        gekozenIngredient += " " + "diepvriestuinboontjes";
+        gekozenIngredient += " " + "diepvriestuinboontje";
+        gekozenIngredient += " " + "diepvriestuinboon";
+        gekozenIngredient += " " + "diepvriestuinbonen";
+
+        gekozenIngredient += " " + "diepvriesdoperwtje";
+        gekozenIngredient += " " + "diepvriesdoperwtjes";
+        gekozenIngredient += " " + "diepvriesdoperwt";
+        gekozenIngredient += " " + "diepvriesdoperwten";
+
+        gekozenIngredient += " " + "diepvriesrösti";
+
+        gekozenIngredient += " " + "diepvriesspinazie";
+
+        gekozenIngredient += " " + "diepvriessperzieboontje";
+        gekozenIngredient += " " + "diepvriessperzieboontjes";
+        gekozenIngredient += " " + "diepvriessperzieboon";
+        gekozenIngredient += " " + "diepvriessperziebonen";
+
+        gekozenIngredient += " " + "diepvriestuinerwtje";
+        gekozenIngredient += " " + "diepvriestuinerwtjes";
+        gekozenIngredient += " " + "diepvriestuinerwt";
+        gekozenIngredient += " " + "diepvriestuinerwten";
+
+        gekozenIngredient += " " + "diepvriesaardbei";
+        gekozenIngredient += " " + "diepvriesaardbeien";
+        gekozenIngredient += " " + "diepvriesaardbeitje";
+        gekozenIngredient += " " + "diepvriesaardbeitjes";
+
+        gekozenIngredient += " " + "diepvriesbosvrucht";
+        gekozenIngredient += " " + "diepvriesbosvruchten";
+        gekozenIngredient += " " + "diepvriesbosvruchtje";
+        gekozenIngredient += " " + "diepvriesbosvruchtjes";
+
+        gekozenIngredient += " " + "diepvriesframboos";
+        gekozenIngredient += " " + "diepvriesframbozen";
+
+        gekozenIngredient += " " + "diepvrieswokgarnaal";
+        gekozenIngredient += " " + "diepvrieswokgarnalen";
+        gekozenIngredient += " " + "diepvrieswokgarnaaltje";
+        gekozenIngredient += " " + "diepvrieswokgarnaaltjes";
+
+
+        gekozenIngredient += " " + "groentemix";
+        gekozenIngredient += " " + "groentenmix";
+
+        gekozenIngredient += " " + "bamigroente";
+        gekozenIngredient += " " + "bamigroentemix";
+        gekozenIngredient += " " + "bamigroenten";
+        gekozenIngredient += " " + "bamigroentenmix";
+
+        gekozenIngredient += " " + "bami-nasigroente";
+        gekozenIngredient += " " + "bami-nasigroentemix";
+        gekozenIngredient += " " + "bami-nasigroenten";
+        gekozenIngredient += " " + "bami-nasigroentenmix";
+
+        gekozenIngredient += " " + "boerensoepgroente";
+        gekozenIngredient += " " + "boerensoepgroentemix";
+        gekozenIngredient += " " + "boerensoepgroenten";
+        gekozenIngredient += " " + "boerensoepgroentenmix";
+
+        gekozenIngredient += " " + "groentepannetje";
+
+        gekozenIngredient += " " + "macaronigroente";
+        gekozenIngredient += " " + "macaronigroentemix";
+        gekozenIngredient += " " + "macaronigroenten";
+        gekozenIngredient += " " + "macaronigroentenmix";
+
+        gekozenIngredient += " " + "macaroni-spaghettigroente";
+        gekozenIngredient += " " + "macaroni-spaghettigroentemix";
+        gekozenIngredient += " " + "macaroni-spaghettigroenten";
+        gekozenIngredient += " " + "macaroni-spaghettigroentenmix";
+
+        gekozenIngredient += " " + "nasi-bamigroente";
+        gekozenIngredient += " " + "nasi-bamigroentemix";
+        gekozenIngredient += " " + "nasi-bamigroenten";
+        gekozenIngredient += " " + "nasi-bamigroentenmix";
+
+        gekozenIngredient += " " + "nasigroente";
+        gekozenIngredient += " " + "nasigroentemix";
+        gekozenIngredient += " " + "nasigroenten";
+        gekozenIngredient += " " + "nasigroentenmix";
+
+        gekozenIngredient += " " + "roerbakgroente";
+        gekozenIngredient += " " + "roerbakgroentemix";
+        gekozenIngredient += " " + "roerbakgroenten";
+        gekozenIngredient += " " + "roerbakgroentenmix";
+        gekozenIngredient += " " + "roerbakmix";
+
+        gekozenIngredient += " " + "salademix";
+
+        gekozenIngredient += " " + "soepgroente";
+        gekozenIngredient += " " + "soepgroentemix";
+        gekozenIngredient += " " + "soepgroenten";
+        gekozenIngredient += " " + "soepgroentenmix";
+
+        gekozenIngredient += " " + "spaghettigroente";
+        gekozenIngredient += " " + "spaghettigroentemix";
+        gekozenIngredient += " " + "spaghettigroenten";
+        gekozenIngredient += " " + "spaghettigroentenmix";
+
+        gekozenIngredient += " " + "spaghetti-macaronigroente";
+        gekozenIngredient += " " + "spaghetti-macaronigroentemix";
+        gekozenIngredient += " " + "spaghetti-macaronigroenten";
+        gekozenIngredient += " " + "spaghetti-macaronigroentenmix";
+
+        gekozenIngredient += " " + "wokgroente";
+        gekozenIngredient += " " + "wokgroentemix";
+        gekozenIngredient += " " + "wokgroenten";
+        gekozenIngredient += " " + "wokgroentenmix";
+
     }
     else if (gekozenIngredient == "mozzarella") {
         gekozenIngredient += " " + "mozzarella's";
@@ -1735,140 +1864,37 @@ function completeSearchOnIngredient(gekozenIngredient) {
         gekozenIngredient += " " + "spekreepje";
         gekozenIngredient += " " + "spekreepjes";
     }
+    else if (gekozenIngredient == "spinazie") {
+        gekozenIngredient += " " + "babyspinazie";
+        gekozenIngredient += " " + "diepvriesspinazie";
+    }
     else if (gekozenIngredient == "stannogo") {
 //vrijwel elk soort fruit
-        gekozenIngredient += " " + "fruit";
-        gekozenIngredient += " " + "fruits";
-        gekozenIngredient += " " + "fruitpunch";
-        gekozenIngredient += " " + "fruitpunchpakket";
-        gekozenIngredient += " " + "fruitpunchpakketten";
-
-        gekozenIngredient += " " + "abrikoos";
-        gekozenIngredient += " " + "abrikozen";
-
-        gekozenIngredient += " " + "appel";
-        gekozenIngredient += " " + "appels";
-        gekozenIngredient += " " + "appelpart";
-        gekozenIngredient += " " + "appelpartje";
-        gekozenIngredient += " " + "appelpartjes";
-
         gekozenIngredient += " " + "banaan";
         gekozenIngredient += " " + "bananen";
         gekozenIngredient += " " + "banaantje";
         gekozenIngredient += " " + "banaantjes";
-        gekozenIngredient += " " + "bakbanaan";
-        gekozenIngredient += " " + "bakbananen";
-        gekozenIngredient += " " + "bakbanaantje";
-        gekozenIngredient += " " + "bakbanaantjes";
-
-        gekozenIngredient += " " + "bessen";
-        gekozenIngredient += " " + "besje";
-        gekozenIngredient += " " + "besjes";
-
-        gekozenIngredient += " " + "bosbessen";
-        gekozenIngredient += " " + "bosbesje";
-        gekozenIngredient += " " + "bosbesjes";
-
-        gekozenIngredient += " " + "goudbessen";
-        gekozenIngredient += " " + "goudbesje";
-        gekozenIngredient += " " + "goudbesjes";
-
-        gekozenIngredient += " " + "braam";
-        gekozenIngredient += " " + "bramen";
-
-        gekozenIngredient += " " + "bosvrucht";
-        gekozenIngredient += " " + "bosvruchten";
-        gekozenIngredient += " " + "bosvruchtje";
-        gekozenIngredient += " " + "bosvruchtjes";
-        gekozenIngredient += " " + "diepvriesbosvrucht";
-        gekozenIngredient += " " + "diepvriesbosvruchten";
-        gekozenIngredient += " " + "diepvriesbosvruchtje";
-        gekozenIngredient += " " + "diepvriesbosvruchtjes";
 
         gekozenIngredient += " " + "druif";
         gekozenIngredient += " " + "druiven";
         gekozenIngredient += " " + "druifje";
         gekozenIngredient += " " + "druifjes";
 
-        gekozenIngredient += " " + "framboos";
-        gekozenIngredient += " " + "frambozen";
-        gekozenIngredient += " " + "diepvriesframboos";
-        gekozenIngredient += " " + "diepvriesframbozen";
-
-        gekozenIngredient += " " + "grapefruit";
-        gekozenIngredient += " " + "grapefruits";
-        gekozenIngredient += " " + "grapefruitsap";
-
-
-        gekozenIngredient += " " + "kiwi";
-        gekozenIngredient += " " + "kiwi's";
-
-        gekozenIngredient += " " + "mango";
-        gekozenIngredient += " " + "mango's";
-
-        gekozenIngredient += " " + "meloen";
-        gekozenIngredient += " " + "meloenen";
-        gekozenIngredient += " " + "cantaloupemeloen";
-        gekozenIngredient += " " + "cantaloupemeloenen";
-        gekozenIngredient += " " + "galiameloen";
-        gekozenIngredient += " " + "galiameloenen";
-        gekozenIngredient += " " + "honingmeloen";
-        gekozenIngredient += " " + "honingmeloenen";
-
         gekozenIngredient += " " + "nectarine";
         gekozenIngredient += " " + "nectarines";
 
-        gekozenIngredient += " " + "passievrucht";
-        gekozenIngredient += " " + "passievruchtje";
-        gekozenIngredient += " " + "passievruchten";
-        gekozenIngredient += " " + "passievruchtjes";
-
-        gekozenIngredient += " " + "passievruchtblok";
-        gekozenIngredient += " " + "passievruchtblokje";
-        gekozenIngredient += " " + "passievruchtblokken";
-        gekozenIngredient += " " + "passievruchtblokjes";
-
-        gekozenIngredient += " " + "peer";
-        gekozenIngredient += " " + "peertje";
-        gekozenIngredient += " " + "peren";
-        gekozenIngredient += " " + "peertjes";
         gekozenIngredient += " " + "stoofpeer";
         gekozenIngredient += " " + "stoofpeertje";
         gekozenIngredient += " " + "stoofperen";
         gekozenIngredient += " " + "stoofpeertjes";
-        gekozenIngredient += " " + "handpeer";
-        gekozenIngredient += " " + "handpeertje";
-        gekozenIngredient += " " + "handperen";
-        gekozenIngredient += " " + "handpeertjes";
+
         gekozenIngredient += " " + "handstoofpeer";
         gekozenIngredient += " " + "handstoofpeertje";
         gekozenIngredient += " " + "handstoofperen";
         gekozenIngredient += " " + "handstoofpeertjes";
 
-        gekozenIngredient += " " + "perzik";
-        gekozenIngredient += " " + "perziken";
-        gekozenIngredient += " " + "perzikstuk";
-        gekozenIngredient += " " + "perzikstukje";
-        gekozenIngredient += " " + "perzikstukken";
-        gekozenIngredient += " " + "perzikstukjes";
-
         gekozenIngredient += " " + "pruim";
         gekozenIngredient += " " + "pruimen";
-
-        gekozenIngredient += " " + "sinaasappel";
-        gekozenIngredient += " " + "sinaasappelen";
-        gekozenIngredient += " " + "sinaasappels";
-
-        gekozenIngredient += " " + "perssinaasappel";
-        gekozenIngredient += " " + "perssinaasappelen";
-        gekozenIngredient += " " + "perssinaasappels";
-
-        gekozenIngredient += " " + "handsinaasappel";
-        gekozenIngredient += " " + "handsinaasappelen";
-        gekozenIngredient += " " + "handsinaasappels";
-        gekozenIngredient += " " + "bloedsinaasappel";
-        gekozenIngredient += " " + "bloedsinaasappelen";
-        gekozenIngredient += " " + "bloedsinaasappels";
 
         gekozenIngredient += " " + "granaatappel";
         gekozenIngredient += " " + "granaatappelen";
@@ -2838,12 +2864,12 @@ function autocomplete(inp, arr) {
 }
 
 /*An array containing all the ingredients:*/
-var ingredientenOpties = ["Aardappel", "Alcohol", "Avocado", "Basilicum", "Bieslook", "Bloemkool", "Boontjes", "Bosui", "Bouillon", "Champignon", "Citroen", "Courgette", "Cremefraiche", 
-			"Diepvriesingredienten", "Dureingredienten", "Ei", "Erwtjes", "Fruit", "Garnaal", "Gehakt", "Gember", "Gnocchi", "Groentemix", 
-			"Ham", "Hamburger","Hoisinsaus","Honing", "Ijs", "Kaas", "Kaneel", "Kipfilet", "Knoflook", "Kokos", "Koriander", 
-			"Limoen", "Macaroni", "Mais", "Mozzarella", "Olieofboter", "Oregano", "Paprika", "Pesto", "Peterselie", "Pijnboompitten", "Pistache", "Prei", 
-			"Ravioli", "Rucola", "Rum", "Satesaus", "Saus", "Simonenogo", "Sjalotten","Sla", "Spaghetti", "Spek", "Stannogo", "Tijm", "Tomaat", 
-			"Ui", "Vanille", "Gevogeltetest", "Vegetarischtest", "Vleestest", "Witlof", "Wortel", "Zoetzuresaus"];
+var ingredientenOpties = ["Aardappel", "Alcohol", "Avocado", "Basilicum", "Bieslook", "Bloemkool", "Boontjes", "Bosui", "Bouillon", "Broccoli", "Champignon", "Citroen", "Courgette", "Cremefraiche", 
+"Diepvriesingredienten", "Dureingredienten", "Ei", "Erwtjes", "Fruit", "Garnaal", "Gehakt", "Gember", "Gnocchi", "Groentemix", 
+"Ham", "Hamburger","Hoisinsaus","Honing", "Ijs", "Kaas", "Kaneel", "Kipfilet", "Knoflook", "knolselderij", "Kokos", "Kookroom", "Koriander", 
+"Limoen", "Lenteofbosui", "Macaroni", "Mais", "Makkelijkeingredienten", "Mozzarella", "Olieofboter", "Oregano", "Paneermeel", "Paprika", "Pesto", "Peterselie", "Pijnboompitten", "Pistache", "Prei", 
+"Ravioli", "Rucola", "Rum", "Satesaus", "Saus", "Simonenogo", "Sjalotten","Sla", "Spaghetti", "Spek", "Spinazie", "Stannogo", "Tijm", "Tomaat", 
+"Ui", "Vanille", "Gevogeltetest", "Vegetarischtest", "Vleestest", "Witlof", "Wortel", "Zoetzuresaus"];
 
 
 
@@ -2861,7 +2887,7 @@ function setCookie(id) {
 }
 
 function getCookie() {
-    console.log("get cookie");
+    console.log(document.cookie);
 }
 
 //functions for the seperate page below:
