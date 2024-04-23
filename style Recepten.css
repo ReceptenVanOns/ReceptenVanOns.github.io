@@ -362,7 +362,7 @@ input[type=number] {
 }
 
 .keywordDiv {
-    float: left;
+    float: none;
 }
 
 .autocomplete textarea {
