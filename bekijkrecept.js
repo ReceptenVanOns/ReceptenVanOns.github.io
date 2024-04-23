@@ -82,14 +82,24 @@ function bekijkReceptenIngredientenLaden(row) {
 }
 
 function stringToFloat(str) {
-    // First try parsing normally
-    const parsed = parseFloat(str);
-    if (!isNaN(parsed)) {
-        return parsed;
+    // Regex to detect patterns like '1½' -> '1' and '½'
+    const matches = str.match(/^(\d*)\s*(\D+)$/);
+
+    if (matches) {
+        const wholePart = parseFloat(matches[1]);
+        const fractionPart = convertFraction(matches[2]);
+
+        if (!isNaN(wholePart) && !isNaN(fractionPart)) {
+            return wholePart + fractionPart;
+        } else if (!isNaN(wholePart)) {
+            return wholePart;
+        } else if (!isNaN(fractionPart)) {
+            return fractionPart;
+        }
     }
 
-    // If normal parsing fails, try the fractional character conversion
-    return convertFraction(str);
+    // If no fractional part is found, try parsing the whole string as a normal number
+    return parseFloat(str);
 }
 
 function convertFraction(fraction) {

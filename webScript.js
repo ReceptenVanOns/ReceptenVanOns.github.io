@@ -2622,6 +2622,41 @@ function showBoodschappenLijst() {
     //autocomplete(document.getElementById("benodigdeIngredienten"), ingredientenOpties);
 }
 
+function stringToFloat(str) {
+    //console.log(str);
+    // Regex to detect patterns like '1½' -> '1' and '½'
+    const matches = str.match(/^(\d*)\s*(\D+)$/);
+    //console.log(matches);
+
+    if (matches) {
+        const wholePart = parseFloat(matches[1]);
+        const fractionPart = convertFraction(matches[2]);
+
+        if (!isNaN(wholePart) && !isNaN(fractionPart)) {
+            return wholePart + fractionPart;
+        } else if (!isNaN(wholePart)) {
+            return wholePart;
+        } else if (!isNaN(fractionPart)) {
+            return fractionPart;
+        }
+    }
+
+    // If no fractional part is found, try parsing the whole string as a normal number
+    return parseFloat(str);
+}
+
+function convertFraction(fraction) {
+    const fractionMap = {
+        '¼': 0.25, '½': 0.5, '¾': 0.75,
+        '⅓': 1/3, '⅔': 2/3,
+        '⅕': 0.2, '⅖': 0.4, '⅗': 0.6, '⅘': 0.8,
+        '⅙': 1/6, '⅚': 5/6,
+        '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875
+    };
+
+    return fractionMap[fraction] || NaN;  // Return NaN if the fraction is not found
+}
+
 function fixIngredienten(jsonCounter, ingreds) {
     var ingredFixPers = eval(gekozenReceptenDict[jsonCounter]);
     //console.log(ingredFixPers);
@@ -2631,7 +2666,7 @@ function fixIngredienten(jsonCounter, ingreds) {
     for (var i=0; i<ingreds_list.length;i++) {
         var thisIngred = ingreds_list[i].split(" : ");
         var thisAmount = thisIngred[1].split(" ");
-        var newAmount = String(Number(thisAmount[0]) * ingredFixPers);
+        var newAmount = String(stringToFloat(thisAmount[0]) * ingredFixPers);
         //console.log(thisIngred);
         for (var j=1; j<thisAmount.length;j++) {
             newAmount += " " + thisAmount[j];
