@@ -362,7 +362,12 @@ input[type=number] {
 }
 
 .keywordDiv {
-    float: none;
+    float: left;
+    background-color: cadetblue;
+    border: 1px solid rgb(56, 93, 94);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 1px;
 }
 
 .autocomplete textarea {
