@@ -64,7 +64,7 @@ function bekijkReceptenIngredientenLaden(row) {
     for (var i=0; i<ingredientenReceptList.length; i++) {
         var ingredientMetAantal = ingredientenReceptList[i];
         var aantal = ingredientMetAantal.split(":")[1];
-        console.log(aantal.split(" "));
+        console.log(aantal);
         if (aantal.split(" ").length > 3) {
             var aantalSoort = aantal.split(" ")[2];
         }
