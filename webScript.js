@@ -115,7 +115,7 @@ function displayJsonToHtmlTable(jsonData){
             // htmlData += '</td></tr>';
             htmlData += '<div class="recept_box">';
             htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '">';
-            htmlData += '<div class="receptDet">';
+            htmlData += '<div class="receptDet" onclick="setCookie(' + (jsonCounter-1) +');window.open(\'Bekijk Recept.html\', \'_blank\');">';
             htmlData += row['Naam recept'] + '<br>';
             htmlData += '&#128337;' + row['Duur'];
             htmlData += '</div></a></div>'; 
@@ -130,7 +130,7 @@ function displayJsonToHtmlTable(jsonData){
         table_div.innerHTML= htmlData;
         fileLoaded = true;
         //init_links(jsonIDsList);
-        setCookie();
+        setCookie(3);
         console.log(jsonData[3]);
         console.log(decodeURIComponent(document.cookie));
     }else{
@@ -342,7 +342,7 @@ function search() {
             
             htmlData += '<div class="recept_box">';
             htmlData += '<a class="receptLink" id="receptLink' + jsonCounter + '" href="'+row['Waar te vinden']+'" target="_blank"><img src="' + row['Foto'] + '">';
-            htmlData += '<div class="receptDet">';
+            htmlData += '<div class="receptDet" onclick="setCookie(' + (jsonCounter-1) +');window.open(\'Bekijk Recept.html\', \'_blank\');">';
             htmlData += row['Naam recept'] + '<br>';
             htmlData += '&#128337;' + row['Duur'];
             htmlData += '</div></a>';
@@ -2851,12 +2851,13 @@ var ingredientenOpties = ["Aardappel", "Alcohol", "Avocado", "Basilicum", "Biesl
 
 
 
-function setCookie() {
+function setCookie(id) {
     let exdays = 1;
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
-    document.cookie = "jsonData=" + jsonData[3] + "; expires=" + expires + "; path=/";
+    document.cookie = "jsonData=" + JSON.stringify(jsonData[id]) + "; expires=" + expires + "; path=/";
+    console.log(document.cookie);
 }
 
 function getCookie() {

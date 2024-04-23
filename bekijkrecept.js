@@ -8,6 +8,7 @@ function bekijkReceptenPaginaLaden() {
 }
 
 function getReceptOmTeBekijken() {
+    console.log(document.cookie);
     console.log(JSON.parse(document.cookie.split("=")[1]));
     let row = JSON.parse(document.cookie.split("=")[1]);
     return row;
